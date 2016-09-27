@@ -9,7 +9,7 @@ CREATING A MODEL
 ----------------------------------------------------
 Loading the API Class & API configuration.   
 
-```
+```javascript
 var TestingModel = $.extends(Skelleton.Model, {
 	_name: "testing",
 	_schema: {
@@ -20,7 +20,7 @@ var TestingModel = $.extends(Skelleton.Model, {
 ----------------------------------------------------
 Get all model records
 ----------------------------------------------------
-```
+```javascript
 TestingModel.all(function(response) {
     // Do something with response
 });
@@ -29,7 +29,7 @@ TestingModel.all(function(response) {
 ----------------------------------------------------
 Get Model API request by id
 ----------------------------------------------------
-```
+```javascript
 TestingModel.get({ id: 1}, function(response) {
     // Do something with response
 });
@@ -37,9 +37,9 @@ TestingModel.get({ id: 1}, function(response) {
 
 
 ----------------------------------------------------
-SAve API request by id
+Save API request by id
 ----------------------------------------------------
-```
+```javascript
 TestingModel.save(parameters, function(response) {
     // Do something with response
 });
