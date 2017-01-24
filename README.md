@@ -12,8 +12,8 @@ Loading the API Class & API configuration.
 ```javascript
 const TestingModel = new Model([
     { name: "id", type: "bigint" },
-    { name: "id", type: "bigint" }
-], "testing");
+    { name: "name", type: "varchar", default: 100 }
+], "tablename_testing");
 
 
 ```
