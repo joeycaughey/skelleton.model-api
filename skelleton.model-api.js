@@ -1,40 +1,53 @@
+function Model(elements) {
+    var self = {
+        records: [],
+        name: elements.name,
+        endpoint: elements.endpoint + "/",
 
-class Model {
-    constructor(schema, table) {
-        this._schema = schema;
-        this.table = table;
-    }
-    init() {
-    	var self = this;
-    	self.all(function(request){
-    		//Content.loop("[data-content-loop="+self.table+"]", request.response);
-    	});
-    }
-    all(callback) {
-        var self = this;
-        Skelleton.API.get(self.table, function(request) {
-            callback(request);
-        });
-    }
-    get(parameters, callback) {
-        var self = this;
+        init: function(callback) {
+            var self = this;
+            self.get({}, function(response) {
+                response = (response) ? response : [];
 
-        Skelleton.API.get(self.table, parameters, function(request) {
-            callback(request);
-        });
-    }
-    save(parameters, callback) {
-        var self = this;
-        var method = (parameters.id) ? "update" : "insert";
+                if (typeof response !== "undefined") {
+                    Content.loop(self.name, response);
+                    $("[data-rel=" + self.name + "-count]").text(response.length);
+                    callback();
+                }
+            });
+            return;
+        },
+        get: function(values, callback) {
+            var self = this;
+            //var params = {};
 
-        Skelleton.API[method](self.table, parameters, function(request) {
-            callback(request);
-        });
+            try {
+                API.get(self.endpoint, values, function(response) {
+                    callback(response);
+                });
+            } catch (error) {
+                callback([]);
+            }
+            return;
+        },
+        save: function(values, callback) {
+            var self = this;
+            var method = (values.id) ? "update" : "insert";
+            API[method](self.endpoint, values, function(response) {
+                callback(response)
+            });
+            return;
+        },
+        delete: function(id, callback) {
+            var self = this;
+            API.delete(self.endpoint, { id: id }, function(response) {
+                callback(response)
+            });
+            return;
+        }
     }
-    delete(parameters, callback) {
-        var self = this;
-        Skelleton.API["delete"](self.table, parameters, function(request) {
-            callback(request);
-        });
-    }
+    $(document).ready(function() {
+        self.init(function() {});
+    });
+    return self;
 }
