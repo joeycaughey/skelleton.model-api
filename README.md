@@ -10,27 +10,40 @@ CREATING A MODEL
 Loading the API Class & API configuration.   
 
 ```javascript
-const TestingModel = new Model([
-    { name: "id", type: "bigint" },
-    { name: "name", type: "varchar", default: 100 }
-], "tablename_testing");
+var TestingModel = Model({
+    name: "testing",
+    endpoint: "v1/testing",
+    schema: [
+        { name: "id", type: "bigint" },
+        { name: "name", type: "varchar", default: 100 }
+    ]
+});
 
-
+```
+----------------------------------------------------
+Initializing the Model
+----------------------------------------------------
+```javascript
+TestingModel.init(function() {
+    // Model Actions
+});
 ```
 ----------------------------------------------------
 Get all model records
 ----------------------------------------------------
 ```javascript
-TestingModel.all(function(request) {
+TestingModel.get({}, function(response) {
     // Do something with response
 });
+
+
 ```
 
 ----------------------------------------------------
 Get Model API request by id
 ----------------------------------------------------
 ```javascript
-TestingModel.get({ id: 1}, function(response) {
+TestingModel.get({ id: 1 }, function(response) {
     // Do something with response
 });
 ```
@@ -39,8 +52,10 @@ TestingModel.get({ id: 1}, function(response) {
 ----------------------------------------------------
 Save API request by id
 ----------------------------------------------------
+If "id" is passed to values thesn an update.
+
 ```javascript
-TestingModel.save(parameters, function(response) {
+TestingModel.save(values, function(response) {
     // Do something with response
 });
 
@@ -49,16 +64,7 @@ TestingModel.save(parameters, function(response) {
 Custom Methods
 ----------------------------------------------------
 ```javascript
-Testing.methodname = function(value) {
+TestingModel.methodname = function(value) {
     return value;
 }
 ```
-
-----------------------------------------------------
-Content Initialize
-----------------------------------------------------
-```javascript
-Testing.init();
-```
-
-
